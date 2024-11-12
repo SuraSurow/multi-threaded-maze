@@ -1,0 +1,7 @@
+# ninja log v6
+4	554	1731434108669480738	CMakeFiles/MultiThreadMaze.dir/main.cpp.o.ddi	60a59bc5d34a5800
+555	580	1731434109239495332	CMakeFiles/MultiThreadMaze.dir/CXX.dd	56a9ff3faf99ac04
+555	580	1731434109239495332	/home/bolo/CLionProjects/MultiThreadMaze/cmake-build-debug/CMakeFiles/MultiThreadMaze.dir/CXXModules.json	56a9ff3faf99ac04
+555	580	1731434109239495332	CMakeFiles/MultiThreadMaze.dir/main.cpp.o.modmap	56a9ff3faf99ac04
+581	3236	1731434109246162169	CMakeFiles/MultiThreadMaze.dir/main.cpp.o	92be84298aeb04e2
+3238	3515	1731434111906230110	MultiThreadMaze	7d8815a91886b184
