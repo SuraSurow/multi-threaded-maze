@@ -1,3 +1,7 @@
 ninja_dyndep_version = 1.0
 build CMakeFiles/MultiThreadMaze.dir/main.cpp.o: dyndep
 
+build CMakeFiles/MultiThreadMaze.dir/Maze.cpp.o: dyndep
+
+build CMakeFiles/MultiThreadMaze.dir/Generate.cpp.o: dyndep
+

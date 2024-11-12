@@ -1,5 +1,5 @@
-CMakeFiles/MultiThreadMaze.dir/main.cpp.o.ddi: \
- /home/bolo/CLionProjects/MultiThreadMaze/main.cpp \
+CMakeFiles/MultiThreadMaze.dir/Generate.cpp.o.ddi: \
+ /home/bolo/CLionProjects/MultiThreadMaze/Generate.cpp \
  /usr/include/stdc-predef.h \
  /home/bolo/CLionProjects/MultiThreadMaze/Generate.h \
  /usr/include/c++/14.2.1/iostream \
