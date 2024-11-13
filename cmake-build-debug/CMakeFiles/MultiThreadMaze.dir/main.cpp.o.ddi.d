@@ -218,4 +218,9 @@ CMakeFiles/MultiThreadMaze.dir/main.cpp.o.ddi: \
  /usr/include/c++/14.2.1/bits/algorithmfwd.h \
  /usr/include/c++/14.2.1/bits/stl_heap.h \
  /usr/include/c++/14.2.1/bits/ranges_algo.h \
- /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h
+ /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
+ /home/bolo/CLionProjects/MultiThreadMaze/Maze.h \
+ /usr/include/c++/14.2.1/mutex /usr/include/c++/14.2.1/bits/chrono.h \
+ /usr/include/c++/14.2.1/ratio /usr/include/c++/14.2.1/ctime \
+ /usr/include/c++/14.2.1/bits/parse_numbers.h \
+ /usr/include/c++/14.2.1/bits/unique_lock.h

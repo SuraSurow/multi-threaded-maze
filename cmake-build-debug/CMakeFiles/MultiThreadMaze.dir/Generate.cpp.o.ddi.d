@@ -218,4 +218,8 @@ CMakeFiles/MultiThreadMaze.dir/Generate.cpp.o.ddi: \
  /usr/include/c++/14.2.1/bits/algorithmfwd.h \
  /usr/include/c++/14.2.1/bits/stl_heap.h \
  /usr/include/c++/14.2.1/bits/ranges_algo.h \
- /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h
+ /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/14.2.1/stack /usr/include/c++/14.2.1/deque \
+ /usr/include/c++/14.2.1/bits/stl_deque.h \
+ /usr/include/c++/14.2.1/bits/deque.tcc \
+ /usr/include/c++/14.2.1/bits/stl_stack.h

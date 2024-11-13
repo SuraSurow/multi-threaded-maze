@@ -1,19 +1,34 @@
 
-/*
+
+#include <mutex>
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+
+
+using namespace std;
+
 class Cell {
-public:
-    bool visited = false;
-    bool top_wall = true;
-    bool bottom_wall = true;
-    bool left_wall = true;
-    bool right_wall = true;
+public :
+    int state ; //-1 dla ściany , 0 dla korutarza , >1 to pidy threadow
+    //std::mutex mutex ;
 
-    Cell() = default;
-    Cell(const Cell&) = delete;
-    Cell& operator=(const Cell&) = delete;
-    Cell(Cell&&) = default;
-    Cell& operator=(Cell&&) = default;
 
-    void display() const {}
+
+
 };
-*/
+
+class Maze {
+public:
+    vector<vector<Cell>> maze ;
+    char wallChar;
+    char corridorChar;
+
+    Maze(const string &filename,char wallChar , char corridorChar):wallChar(wallChar),corridorChar(corridorChar){
+        loadFromFile(filename);
+    }
+
+    void loadFromFile(const string &filename);
+    void print();
+};

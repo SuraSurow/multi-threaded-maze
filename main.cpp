@@ -1,11 +1,19 @@
 #include "Generate.h"
-int main() {
-    int height = 10; // Wysokość labiryntu
-    int width = 10;  // Szerokość labiryntu
+#include "Maze.h"
 
-    GenMaze maze(height, width);
-    maze.generate();
-    maze.saveToFile("maze.txt");
+int main() {
+    const int height = 10;//wielkosc razy 2
+    const int width = 10;//wielkosc razy 2
+    const char wallChar = '#';
+    const char corridorChar = ' ';
+    std::string filename= "maze.txt";
+
+    GenMaze genMaze(height, width,wallChar,corridorChar);
+    genMaze.generate();
+    genMaze.saveToFile(filename);
+
+    Maze maze (filename,wallChar,corridorChar);
+    maze.print();
 
     return 0;
 }
