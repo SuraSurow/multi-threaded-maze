@@ -87,7 +87,7 @@ void GenMaze::saveToFile(const std::string& filename) const {
     }
 
     file.close();
-    std::cout << "Labirynt zapisany do pliku: " << filename << std::endl;
+    //std::cout << "Labirynt zapisany do pliku: " << filename << std::endl;
 }
 
 void GenMaze::saveRowToFile(std::ofstream& file, int row) const {

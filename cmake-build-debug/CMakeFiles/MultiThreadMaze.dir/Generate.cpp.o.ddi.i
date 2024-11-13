@@ -90873,10 +90873,10 @@ public:
 
 class GenMaze {
 private:
+    const char wallChar = '#';
+    const char corridorChar = ' ';
     int height;
     int width;
-    char wallChar;
-    char corridorChar;
     std::vector<std::vector<std::unique_ptr<GenCell>>> maze;
     enum class Direction { UP, DOWN, LEFT, RIGHT };
 
@@ -90888,8 +90888,7 @@ private:
 public:
 
 
-    GenMaze(int h, int w, char wallChar, char corridorChar)
-        : height(h), width(w), wallChar(wallChar), corridorChar(corridorChar) {
+    GenMaze(int h, int w): height(h), width(w) {
         initializeMaze();
     }
     void generate() const;
@@ -94105,7 +94104,7 @@ void GenMaze::saveToFile(const std::string& filename) const {
     }
 
     file.close();
-    std::cout << "Labirynt zapisany do pliku: " << filename << std::endl;
+
 }
 
 void GenMaze::saveRowToFile(std::ofstream& file, int row) const {

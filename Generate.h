@@ -27,10 +27,12 @@ public:
 
 class GenMaze {
 private:
+    const char wallChar = '#';
+    const char corridorChar = ' ';
+    const int wallNum = -1;
+    const int corridorNum = 0;
     int height;
     int width;
-    char wallChar;
-    char corridorChar;
     std::vector<std::vector<std::unique_ptr<GenCell>>> maze;
     enum class Direction { UP, DOWN, LEFT, RIGHT };
 
@@ -42,8 +44,7 @@ private:
 public:
 
 
-    GenMaze(int h, int w, char wallChar, char corridorChar)
-        : height(h), width(w), wallChar(wallChar), corridorChar(corridorChar) {
+    GenMaze(int h, int w): height(h), width(w) {
         initializeMaze();
     }
     void generate() const;

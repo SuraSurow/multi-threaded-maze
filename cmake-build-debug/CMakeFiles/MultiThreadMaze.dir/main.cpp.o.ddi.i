@@ -90873,10 +90873,10 @@ public:
 
 class GenMaze {
 private:
+    const char wallChar = '#';
+    const char corridorChar = ' ';
     int height;
     int width;
-    char wallChar;
-    char corridorChar;
     std::vector<std::vector<std::unique_ptr<GenCell>>> maze;
     enum class Direction { UP, DOWN, LEFT, RIGHT };
 
@@ -90888,8 +90888,7 @@ private:
 public:
 
 
-    GenMaze(int h, int w, char wallChar, char corridorChar)
-        : height(h), width(w), wallChar(wallChar), corridorChar(corridorChar) {
+    GenMaze(int h, int w): height(h), width(w) {
         initializeMaze();
     }
     void generate() const;
@@ -93709,33 +93708,55 @@ public :
 };
 
 class Maze {
+    const char wallChar = '#';
+    const char corridorChar = ' ';
 public:
     vector<vector<Cell>> maze ;
-    char wallChar;
-    char corridorChar;
 
-    Maze(const string &filename,char wallChar , char corridorChar):wallChar(wallChar),corridorChar(corridorChar){
+
+    Maze(const string &filename){
         loadFromFile(filename);
     }
 
     void loadFromFile(const string &filename);
-    void print();
+    void startTraffic () {
+
+    }
 };
 # 3 "/home/bolo/CLionProjects/MultiThreadMaze/main.cpp" 2
 
-int main() {
-    const int height = 10;
-    const int width = 10;
-    const char wallChar = '#';
-    const char corridorChar = ' ';
-    std::string filename= "maze.txt";
-
-    GenMaze genMaze(height, width,wallChar,corridorChar);
+void genNewMaze(int &h,int &w , std::string &f) {
+    GenMaze genMaze(h, w);
     genMaze.generate();
-    genMaze.saveToFile(filename);
+    genMaze.saveToFile(f);
+}
 
-    Maze maze (filename,wallChar,corridorChar);
-    maze.print();
+int takeInput(int& thread , int& width , int& height , std::string& file , int argc , char* argv[] ) {
+    if (argc < 2) {
+        std::cerr << "Użycie: " << argv[0] << " <liczba_wątków> [szerokość] [wysokość] [nazwaPlikuLabiryntu]\n";
+        return 1;
+    }
+    if (argc == 5) {
+        thread = std::stoi(argv[1]);
+        if (thread < 1) {
+            std::cerr << "Liczba wątków musi być większa lub równa 1.\n";
+            return 1;
+        }
+        height = std::stoi(argv[2]);
+        width = std::stoi(argv[3]);
+        file = argv[4];
+    }
+    return 0;
+}
+
+int main(int argc, char* argv[]) {
+
+    int height,width,num_threads;
+    std::string filename;
+    if ( takeInput(num_threads,width,height,filename,argc,argv) != 0 ) return -1;
+    genNewMaze(height,width,filename);
+    Maze maze (filename);
+
 
     return 0;
 }

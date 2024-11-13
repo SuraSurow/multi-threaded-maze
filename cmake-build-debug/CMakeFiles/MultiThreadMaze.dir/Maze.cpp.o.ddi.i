@@ -55565,17 +55565,20 @@ public :
 };
 
 class Maze {
+    const char wallChar = '#';
+    const char corridorChar = ' ';
 public:
     vector<vector<Cell>> maze ;
-    char wallChar;
-    char corridorChar;
 
-    Maze(const string &filename,char wallChar , char corridorChar):wallChar(wallChar),corridorChar(corridorChar){
+
+    Maze(const string &filename){
         loadFromFile(filename);
     }
 
     void loadFromFile(const string &filename);
-    void print();
+    void startTraffic () {
+
+    }
 };
 # 2 "/home/bolo/CLionProjects/MultiThreadMaze/Maze.cpp" 2
 using namespace std;
@@ -55597,7 +55600,7 @@ void Maze::loadFromFile(const string &filename) {
             } else if (ch == corridorChar) {
                 state = 0;
             } else {
-                state = ch - '0';
+
             }
             row.emplace_back(state);
         }
@@ -55605,20 +55608,3 @@ void Maze::loadFromFile(const string &filename) {
     }
     file.close();
 }
-
-void Maze::print() {
-
-        for (const auto& row : maze) {
-            std::cout<<endl;
-            for (const auto& cell : row) {
-                if (cell.state == -1) {
-                    std::cout<<wallChar;
-                }
-                else if (cell.state == 0 ) {
-                    std::cout<<corridorChar;
-                }
-
-            }
-
-        }
-    }

@@ -16,19 +16,26 @@ public :
 
 
 
-
 };
 
 class Maze {
+    const char wallChar = '#';
+    const char corridorChar = ' ';
+    const int wallNum = -1;
+    const int corridorNum = 0;
 public:
     vector<vector<Cell>> maze ;
-    char wallChar;
-    char corridorChar;
 
-    Maze(const string &filename,char wallChar , char corridorChar):wallChar(wallChar),corridorChar(corridorChar){
+
+    Maze(const string &filename){
         loadFromFile(filename);
     }
 
     void loadFromFile(const string &filename);
-    void print();
+
+    Cell& startPoint(int x, int y);
+
+    void startTraffic ();
+
+    void checkTrace(Cell &checkingCell);
 };
