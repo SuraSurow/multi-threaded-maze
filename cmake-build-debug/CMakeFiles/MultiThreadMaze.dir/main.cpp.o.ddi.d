@@ -219,8 +219,25 @@ CMakeFiles/MultiThreadMaze.dir/main.cpp.o.ddi: \
  /usr/include/c++/14.2.1/bits/stl_heap.h \
  /usr/include/c++/14.2.1/bits/ranges_algo.h \
  /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/14.2.1/stack /usr/include/c++/14.2.1/deque \
+ /usr/include/c++/14.2.1/bits/stl_deque.h \
+ /usr/include/c++/14.2.1/bits/deque.tcc \
+ /usr/include/c++/14.2.1/bits/stl_stack.h \
  /home/bolo/CLionProjects/MultiThreadMaze/Maze.h \
- /usr/include/c++/14.2.1/mutex /usr/include/c++/14.2.1/bits/chrono.h \
- /usr/include/c++/14.2.1/ratio /usr/include/c++/14.2.1/ctime \
+ /usr/include/c++/14.2.1/array /usr/include/c++/14.2.1/map \
+ /usr/include/c++/14.2.1/bits/stl_tree.h \
+ /usr/include/c++/14.2.1/bits/node_handle.h \
+ /usr/include/c++/14.2.1/bits/stl_map.h \
+ /usr/include/c++/14.2.1/bits/stl_multimap.h \
+ /usr/include/c++/14.2.1/bits/erase_if.h /usr/include/c++/14.2.1/mutex \
+ /usr/include/c++/14.2.1/bits/chrono.h /usr/include/c++/14.2.1/ratio \
+ /usr/include/c++/14.2.1/ctime \
  /usr/include/c++/14.2.1/bits/parse_numbers.h \
- /usr/include/c++/14.2.1/bits/unique_lock.h
+ /usr/include/c++/14.2.1/bits/unique_lock.h \
+ /usr/include/c++/14.2.1/thread /usr/include/c++/14.2.1/stop_token \
+ /usr/include/c++/14.2.1/atomic /usr/include/c++/14.2.1/bits/std_thread.h \
+ /usr/include/c++/14.2.1/semaphore \
+ /usr/include/c++/14.2.1/bits/semaphore_base.h \
+ /usr/include/c++/14.2.1/bits/atomic_timed_wait.h \
+ /usr/include/c++/14.2.1/bits/this_thread_sleep.h /usr/include/sys/time.h \
+ /usr/include/semaphore.h /usr/include/bits/semaphore.h

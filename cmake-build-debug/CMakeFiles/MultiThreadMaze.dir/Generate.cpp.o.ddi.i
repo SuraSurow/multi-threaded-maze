@@ -90851,50 +90851,6 @@ lexicographical_compare(_ExecutionPolicy&& __exec, _ForwardIterator1 __first1, _
 }
 # 87 "/usr/include/c++/14.2.1/algorithm" 2 3
 # 10 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.h" 2
-
-
-# 11 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.h"
-class GenCell {
-public:
-    bool visited;
-    bool top_wall;
-    bool bottom_wall;
-    bool left_wall;
-    bool right_wall;
-
-    GenCell() : visited(false), top_wall(true), bottom_wall(true), left_wall(true), right_wall(true) {}
-    GenCell(const GenCell&) = delete;
-    GenCell& operator=(const GenCell&) = delete;
-    GenCell(GenCell&&) = default;
-    GenCell& operator=(GenCell&&) = default;
-
-    void display() const;
-};
-
-class GenMaze {
-private:
-    const char wallChar = '#';
-    const char corridorChar = ' ';
-    int height;
-    int width;
-    std::vector<std::vector<std::unique_ptr<GenCell>>> maze;
-    enum class Direction { UP, DOWN, LEFT, RIGHT };
-
-    void initializeMaze();
-    void removeWalls(int, int) const;
-    void setWallProperties(int x, int y, int nx, int ny, Direction dir) const;
-    void saveRowToFile(std::ofstream& file, int row) const;
-
-public:
-
-
-    GenMaze(int h, int w): height(h), width(w) {
-        initializeMaze();
-    }
-    void generate() const;
-    void saveToFile(const std::string&) const;
-};
-# 2 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.cpp" 2
 # 1 "/usr/include/c++/14.2.1/stack" 1 3
 # 58 "/usr/include/c++/14.2.1/stack" 3
        
@@ -90914,8 +90870,6 @@ public:
 
 
 # 1 "/usr/include/c++/14.2.1/bits/stl_deque.h" 1 3
-# 72 "/usr/include/c++/14.2.1/bits/stl_deque.h" 3
-
 # 72 "/usr/include/c++/14.2.1/bits/stl_deque.h" 3
 namespace std __attribute__ ((__visibility__ ("default")))
 {
@@ -94014,10 +93968,59 @@ namespace std __attribute__ ((__visibility__ ("default")))
        
 # 48 "/usr/include/c++/14.2.1/bits/version.h" 3
 # 67 "/usr/include/c++/14.2.1/stack" 2 3
-# 3 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.cpp" 2
+# 11 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.h" 2
 
 
-# 4 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.cpp"
+
+
+# 14 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.h"
+class GenCell {
+public:
+    bool visited;
+    bool top_wall;
+    bool bottom_wall;
+    bool left_wall;
+    bool right_wall;
+
+    GenCell() : visited(false), top_wall(true), bottom_wall(true), left_wall(true), right_wall(true) {}
+    GenCell(const GenCell&) = delete;
+    GenCell& operator=(const GenCell&) = delete;
+    GenCell(GenCell&&) = default;
+    GenCell& operator=(GenCell&&) = default;
+
+    void display() const;
+};
+
+struct rgb {
+    short r, g, b;
+};
+
+class GenMaze {
+private:
+    const char wallChar = '#';
+    const char corridorChar = ' ';
+    const int wallNum = -1;
+    const int corridorNum = 0;
+    int height;
+    int width;
+    std::vector<std::vector<std::unique_ptr<GenCell>>> maze;
+    enum class Direction { UP, DOWN, LEFT, RIGHT };
+
+    void initializeMaze();
+    void removeWalls(int startY, int startX) const;
+    void setWallProperties(int y, int x, int ny, int nx, Direction dir) const;
+    void saveRowToFile(std::ofstream& file, int row) const;
+
+public:
+    GenMaze(int h, int w): height(h), width(w) {
+        initializeMaze();
+    }
+    void generate() const;
+    void saveToFile(const std::string&) const;
+    void saveToPPM(const std::string& filename, int scale = 1) const;
+};
+# 2 "/home/bolo/CLionProjects/MultiThreadMaze/Generate.cpp" 2
+
 void GenMaze::initializeMaze() {
     maze.resize(2 * height + 1);
     for (auto& row : maze) {
@@ -94028,62 +94031,62 @@ void GenMaze::initializeMaze() {
     }
 }
 
-void GenMaze::removeWalls(int startX, int startY) const {
+void GenMaze::removeWalls(int startY, int startX) const {
     std::stack<std::pair<int, int>> stack;
-    stack.emplace(startX, startY);
-    maze[startX][startY]->visited = true;
+    stack.emplace(startY, startX);
+    maze[startY][startX]->visited = true;
 
     std::random_device rd;
     std::mt19937 g(rd());
 
     while (!stack.empty()) {
-        int x = stack.top().first;
-        int y = stack.top().second;
+        int y = stack.top().first;
+        int x = stack.top().second;
         stack.pop();
 
         std::vector directions = { Direction::UP, Direction::DOWN, Direction::LEFT, Direction::RIGHT };
         std::ranges::shuffle(directions, g);
 
         for (const Direction dir : directions) {
-            int nx = x, ny = y;
+            int ny = y, nx = x;
 
             switch (dir) {
-                case Direction::UP: nx = x - 2; break;
-                case Direction::DOWN: nx = x + 2; break;
-                case Direction::LEFT: ny = y - 2; break;
-                case Direction::RIGHT: ny = y + 2; break;
+                case Direction::UP: ny = y - 2; break;
+                case Direction::DOWN: ny = y + 2; break;
+                case Direction::LEFT: nx = x - 2; break;
+                case Direction::RIGHT: nx = x + 2; break;
             }
 
-            if (nx >= 1 && nx < 2 * height && ny >= 1 && ny < 2 * width && !maze[nx][ny]->visited) {
-                setWallProperties(x, y, nx, ny, dir);
-                maze[nx][ny]->visited = true;
-                stack.emplace(nx, ny);
+            if (ny >= 1 && ny < 2 * height && nx >= 1 && nx < 2 * width && !maze[ny][nx]->visited) {
+                setWallProperties(y, x, ny, nx, dir);
+                maze[ny][nx]->visited = true;
+                stack.emplace(ny, nx);
             }
         }
     }
 }
 
-void GenMaze::setWallProperties(int x, int y, int nx, int ny, Direction dir) const {
+void GenMaze::setWallProperties(int y, int x, int ny, int nx, Direction dir) const {
     switch (dir) {
         case Direction::UP:
-            maze[x - 1][y]->visited = true;
-            maze[x][y]->top_wall = false;
-            maze[x - 1][y]->bottom_wall = false;
+            maze[y - 1][x]->visited = true;
+            maze[y][x]->top_wall = false;
+            maze[y - 1][x]->bottom_wall = false;
             break;
         case Direction::DOWN:
-            maze[x + 1][y]->visited = true;
-            maze[x][y]->bottom_wall = false;
-            maze[x + 1][y]->top_wall = false;
+            maze[y + 1][x]->visited = true;
+            maze[y][x]->bottom_wall = false;
+            maze[y + 1][x]->top_wall = false;
             break;
         case Direction::LEFT:
-            maze[x][y - 1]->visited = true;
-            maze[x][y]->left_wall = false;
-            maze[x][y - 1]->right_wall = false;
+            maze[y][x - 1]->visited = true;
+            maze[y][x]->left_wall = false;
+            maze[y][x - 1]->right_wall = false;
             break;
         case Direction::RIGHT:
-            maze[x][y + 1]->visited = true;
-            maze[x][y]->right_wall = false;
-            maze[x][y + 1]->left_wall = false;
+            maze[y][x + 1]->visited = true;
+            maze[y][x]->right_wall = false;
+            maze[y][x + 1]->left_wall = false;
             break;
     }
 }
@@ -94104,7 +94107,6 @@ void GenMaze::saveToFile(const std::string& filename) const {
     }
 
     file.close();
-
 }
 
 void GenMaze::saveRowToFile(std::ofstream& file, int row) const {
@@ -94112,4 +94114,30 @@ void GenMaze::saveRowToFile(std::ofstream& file, int row) const {
         file << (maze[row][j]->visited ? corridorChar : wallChar);
     }
     file << "\n";
+}
+
+void GenMaze::saveToPPM(const std::string& filename, int scale) const {
+    std::ofstream ppmFile(filename);
+    if (!ppmFile.is_open()) {
+        std::cerr << "Nie można otworzyć pliku: " << filename << std::endl;
+        return;
+    }
+
+    int ppmWidth = (2 * width + 1) * scale;
+    int ppmHeight = (2 * height + 1) * scale;
+    ppmFile << "P3\n" << ppmWidth << " " << ppmHeight << "\n255\n";
+
+    for (int row = 0; row < 2 * height + 1; ++row) {
+        for (int scaleY = 0; scaleY < scale; ++scaleY) {
+            for (int col = 0; col < 2 * width + 1; ++col) {
+                rgb color = maze[row][col]->visited ? rgb{255, 255, 255} : rgb{0, 0, 0};
+                for (int scaleX = 0; scaleX < scale; ++scaleX) {
+                    ppmFile << color.r << " " << color.g << " " << color.b << " ";
+                }
+            }
+            ppmFile << "\n";
+        }
+    }
+
+    ppmFile.close();
 }

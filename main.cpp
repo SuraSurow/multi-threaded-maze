@@ -5,6 +5,7 @@ void genNewMaze(int &h,int &w , std::string &f) {
     GenMaze genMaze(h, w);//generowanie labiryntu uzywajac ]algorytmu przeszukiwania w głąb z wykorzystaniem stosu
     genMaze.generate();
     genMaze.saveToFile(f);
+    genMaze.saveToPPM("generated_labyrinth.ppm", 10);
 }
 
 int takeInput( int& width , int& height , std::string& file , int argc , char* argv[] ) {
@@ -21,17 +22,27 @@ int takeInput( int& width , int& height , std::string& file , int argc , char* a
 }
 
 int main(int argc, char* argv[]) {
-
-    int height,width;
+    int height, width;
     std::string filename;
-    if ( takeInput(width,height,filename,argc,argv) != 0 ) return -1;
-    genNewMaze(height,width,filename);
-    Maze maze (filename);
-    auto start = std::chrono::high_resolution_clock::now();
 
+    if (takeInput(width, height, filename, argc, argv) != 0) return -1;
+
+    std::cout << "Generowanie labiryntu o wymiarach: " << width << " x " << height << std::endl;
+    genNewMaze(height, width, filename);
+
+    Maze maze(filename);
+    std::cout << "Rozpoczęcie ruchu w labiryncie" << std::endl;
+    Maze::drawMaze(maze);
+    auto start = std::chrono::high_resolution_clock::now();
+    maze.startTraffic(10);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "Czas trwania ruchu: "
+              << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
+              << " ms" << std::endl;
 
     return 0;
 }
+
 
 
 

@@ -1,5 +1,5 @@
-#ifndef GENCELL_H
-#define GENCELL_H
+#ifndef GENERATE_H
+#define GENERATE_H
 
 #include <iostream>
 #include <vector>
@@ -7,6 +7,9 @@
 #include <fstream>
 #include <random>
 #include <algorithm>
+#include <stack>
+#include <random>
+#include <fstream>
 
 class GenCell {
 public:
@@ -25,6 +28,10 @@ public:
     void display() const;
 };
 
+struct rgb {
+    short r, g, b;
+};
+
 class GenMaze {
 private:
     const char wallChar = '#';
@@ -37,19 +44,17 @@ private:
     enum class Direction { UP, DOWN, LEFT, RIGHT };
 
     void initializeMaze();
-    void removeWalls(int, int) const;
-    void setWallProperties(int x, int y, int nx, int ny, Direction dir) const;
+    void removeWalls(int startY, int startX) const;
+    void setWallProperties(int y, int x, int ny, int nx, Direction dir) const;
     void saveRowToFile(std::ofstream& file, int row) const;
 
 public:
-
-
     GenMaze(int h, int w): height(h), width(w) {
         initializeMaze();
     }
     void generate() const;
     void saveToFile(const std::string&) const;
+    void saveToPPM(const std::string& filename, int scale = 1) const;
 };
 
-#endif //GENCELL_H
-
+#endif //GENERATE_H
