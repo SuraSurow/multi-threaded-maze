@@ -24,7 +24,7 @@ void GenMaze::removeWalls(int startY, int startX) const {
         stack.pop();
 
         std::vector directions = { Direction::UP, Direction::DOWN, Direction::LEFT, Direction::RIGHT };
-        std::ranges::shuffle(directions, g);
+        std::shuffle(directions.begin(), directions.end(), g);
 
         for (const Direction dir : directions) {
             int ny = y, nx = x;
